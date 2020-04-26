@@ -13,3 +13,5 @@
 Route::get("login", function () {
     return Response::json(["message" => "You're not signed in"], 403);
 })->name("login");
+
+Route::fallback('ErrorPageController');
