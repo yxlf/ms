@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
@@ -17,7 +18,7 @@ class RecordInController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index(Request $request)
     {
@@ -47,7 +48,7 @@ class RecordInController extends Controller
                 });
             })
             ->orderBy("updated_at", "desc")
-            ->get();
+            ->paginate(10);
         return $recordIns;
     }
 

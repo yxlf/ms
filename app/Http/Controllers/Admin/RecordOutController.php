@@ -14,7 +14,7 @@ class RecordOutController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index(Request $request)
     {
@@ -45,7 +45,7 @@ class RecordOutController extends Controller
                 });
             })
             ->orderBy("updated_at", "desc")
-            ->get();
+            ->paginate(10);
         return $recordIns;
     }
 
