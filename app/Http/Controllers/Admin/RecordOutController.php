@@ -101,7 +101,12 @@ class RecordOutController extends Controller
             $count = $recordIn->count;
             $recordIn->count = $request->input("count");
             if ($request->input('count') != $count) {
-                $recordIn->commodity()->decrement('count', $request->input('count') - $count);
+                $recordIn->commodity->decrement('count', $request->input('count') - $count);
+                if ($recordIn->commodity->count >= 0) {
+                    $recordIn->commodity()->decrement('count', $request->input('count') - $count);
+                } else {
+                    return response()->json(['error_message'=>"invalid value"],405);
+                }
             }
         }
         $recordIn->save();
