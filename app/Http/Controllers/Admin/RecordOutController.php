@@ -110,6 +110,7 @@ class RecordOutController extends Controller
             \DB::commit();
         }else{
             \DB::rollBack();
+            return response()->json(['error_message'=>"Quantity limit exceeded"]);
         }
         return response()->json(['status' => "success"]);
     }
