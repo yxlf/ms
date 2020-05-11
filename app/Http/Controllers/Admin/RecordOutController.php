@@ -80,6 +80,7 @@ class RecordOutController extends Controller
      */
     public function update(Request $request, $id)
     {
+        \DB::beginTransaction();
         //
         try {
             $this->validate($request, [
@@ -101,15 +102,15 @@ class RecordOutController extends Controller
             $count = $recordIn->count;
             $recordIn->count = $request->input("count");
             if ($request->input('count') != $count) {
-                $recordIn->commodity->decrement('count', $request->input('count') - $count);
-                if ($recordIn->commodity->count >= 0) {
-                    $recordIn->commodity()->decrement('count', $request->input('count') - $count);
-                } else {
-                    return response()->json(['error_message'=>"invalid value"],405);
-                }
+                $recordIn->commodity()->decrement('count', $request->input('count') - $count);
             }
         }
         $recordIn->save();
+        if ($recordIn->commodity()->value("count")>=0){
+            \DB::commit();
+        }else{
+            \DB::rollBack();
+        }
         return response()->json(['status' => "success"]);
     }
 
