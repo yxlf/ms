@@ -77,6 +77,7 @@ class RecordOutController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
@@ -106,11 +107,11 @@ class RecordOutController extends Controller
             }
         }
         $recordIn->save();
-        if ($recordIn->commodity()->value("count")>=0){
+        if ($recordIn->commodity()->value("count") >= 0) {
             \DB::commit();
-        }else{
+        } else {
             \DB::rollBack();
-            return response()->json(['error_message'=>"Quantity limit exceeded"]);
+            return response()->json(['error_message' => "Quantity limit exceeded"]);
         }
         return response()->json(['status' => "success"]);
     }

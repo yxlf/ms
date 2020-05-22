@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Route::post("login", 'AuthController@getToken');
 Route::delete("logout", 'AuthController@logout')->middleware("auth");
 Route::post("freshtoken", 'AuthController@freshToken')->middleware("auth");
+Route::put('restpsw', 'AuthController@passwordReset')->middleware('auth');
 Route::prefix("admin")->namespace('Admin')->middleware('auth')->group(function () {
     Route::apiResource('class', 'TitleController')->except(['show']);
     Route::apiResource('store', 'StoreController')->except(["show"]);
