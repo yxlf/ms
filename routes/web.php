@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get("login", function () {
-    return Response::json(["message" => "You're not signed in"], 403);
-})->name("login");
+Route::get("login", 'Web\LoginController')->name("login");
 
 Route::fallback('ErrorPageController');
