@@ -94,7 +94,7 @@ class MessageServerController extends Controller
      */
     public function deleteAll()
     {
-        MessageServer::delete();
+        MessageServer::withoutTrashed()->delete();
         return response()->json(['msg' => '消息已经清空', 'code' => 200, 'data' => null]);
     }
 }
