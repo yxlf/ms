@@ -87,4 +87,14 @@ class MessageServerController extends Controller
         MessageServer::destroy([$id]);
         return response()->json(['msg' => '该条消息已经清楚', 'code' => 200, 'data' => null]);
     }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function deleteAll()
+    {
+        MessageServer::delete();
+        return response()->json(['msg' => '消息已经清空', 'code' => 200, 'data' => null]);
+    }
 }

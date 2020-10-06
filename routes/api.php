@@ -23,5 +23,6 @@ Route::prefix("admin")->namespace('Admin')->middleware('auth')->group(function (
     Route::apiResource('recordin', 'RecordInController')->except(["store", "show"]);
     Route::apiResource('recordout', 'RecordOutController')->except(["store", "show"]);
 });
-Route::apiResource('message', 'MessageServerController')->only(['index', 'store','destroy']);
+Route::apiResource('message', 'MessageServerController')->only(['index', 'store', 'destroy']);
+Route::delete('message', 'MessageServerController@deleteAll');
 
