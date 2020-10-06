@@ -84,7 +84,7 @@ class MessageServerController extends Controller
      */
     public function destroy($id)
     {
-        \DB::table('message_servers')->truncate();
-        return response()->json(['msg' => '消息已置空', 'code' => 200, 'data' => null]);
+        MessageServer::destroy([$id]);
+        return response()->json(['msg' => '该条消息已经清楚', 'code' => 200, 'data' => null]);
     }
 }
